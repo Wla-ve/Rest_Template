@@ -49,7 +49,7 @@ public class Communication {
     private ResponseEntity<String> updateUser() {
         User user = new User(3L, "Thomas", "Shelby", (byte) 24);
         HttpEntity<User> http = new HttpEntity<>(user, httpHeaders);
-        return restTemplate.exchange(URL, HttpMethod.PUT, http, String.class, 1);
+        return restTemplate.exchange(URL, HttpMethod.PUT, http, String.class, 3);
     }
 
     private ResponseEntity<String> deleteUser() {
