@@ -5,11 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class RestExampleApplication {
+public class Application {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(RestExampleApplication.class,args);
-        Controller controller = context.getBean("controller", Controller.class);
-        System.out.println("Answer: " + controller.getAnswer());
+        ConfigurableApplicationContext context = SpringApplication.run(Application.class,args);
+        Communication communication = context.getBean("communication", Communication.class);
+        System.out.println(communication.getAllUsers());
+        System.out.println("Answer: " + communication.getAnswer());
     }
 }

@@ -14,17 +14,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.http.RequestEntity.put;
-
 @Component
-public class Controller {
+public class Communication {
     private final HttpHeaders httpHeaders;
     private final RestTemplate restTemplate;
 
     private String URL = "http://94.198.50.185:7081/api/users";
 
     @Autowired
-    public Controller(HttpHeaders httpHeaders, RestTemplate restTemplate) {
+    public Communication(HttpHeaders httpHeaders, RestTemplate restTemplate) {
         this.httpHeaders = httpHeaders;
         this.restTemplate = restTemplate;
         this.httpHeaders.set("Cookie",
@@ -43,22 +41,20 @@ public class Controller {
     }
 
     private ResponseEntity<String> addUser() {
-        User user = new User(1L, "Vladislav", "Nedobugin", (byte) 25);
+        User user = new User(3L, "James", "Brown", (byte) 25);
         HttpEntity<User> http = new HttpEntity<>(user, httpHeaders);
         return restTemplate.postForEntity(URL, http, String.class);
     }
 
     private ResponseEntity<String> updateUser() {
-        User user = new User(1L, "Alex", "Nedobugina", (byte) 24);
+        User user = new User(3L, "Thomas", "Shelby", (byte) 24);
         HttpEntity<User> http = new HttpEntity<>(user, httpHeaders);
         return restTemplate.exchange(URL, HttpMethod.PUT, http, String.class, 1);
     }
 
     private ResponseEntity<String> deleteUser() {
-        Map<String, Long> map = new HashMap<>();
-        {
-            put("id", 3);
-        }
+        Map<String, Long> map = new HashMap<>();{{
+                map.put("id", 3L);}}
         HttpEntity<User> http = new HttpEntity<>(null, httpHeaders);
         return restTemplate.exchange(URL + "/{id}", HttpMethod.DELETE, http, String.class, map);
     }
